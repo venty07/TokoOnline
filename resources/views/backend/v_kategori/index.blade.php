@@ -5,7 +5,7 @@
     <div class="col-12">
       <a href="{{ route('backend.kategori.create') }}">
         <button type="button" class="btn btn-primary"><i class="fas fa-plus"></i>
-          Tambah</button>
+          Tambah Data</button>
       </a>
       <div class="card mt-3">
         <div class="card-body">
