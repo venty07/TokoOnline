@@ -2,7 +2,7 @@
 @section('content')
   <div class="row mt-3">
     <div class="col-12">
-      <a href="{{ route('backend.user.create') }}">
+      <a href="{{ route('backend.produk.create') }}">
         <button type="button" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah</button>
       </a>
       <div class="card mt-3">
@@ -13,10 +13,12 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Email</th>
-                  <th>Nama</th>
-                  <th>Role</th>
-                  <th>Status</th>
+                  <th>Gambar</th>
+                  <th>kategori</th>
+                  <th>status</th>
+                  <th>Nama Produk</th>
+                  <th>Harga</th>
+                  <th>Stok</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
@@ -24,35 +26,32 @@
                 @foreach ($index as $row)
                   <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $row->nama }}</td>
+                    <td><img src="{{ asset('storage/img-produk/' . $row->foto) }}" width="50px" alt="Foto Produk"></td>
+                    <td>{{ $row->nama_kategori }}</td>
                     <td>{{ $row->email }}</td>
                     <td>
-                      @if ($row->role == 1)
-                        <span class="badge bg-primary">Super Admin</span>
-                      @elseif($row->role == 0)
-                        <span class="badge bg-cyan">Admin</span>
-                      @endif
-                    </td>
-                    <td>
                       @if ($row->status == 1)
-                        <span class="badge bg-success">Aktif</span>
-                      @elseif($row->status == 0)
-                        <span class="badge bg-danger">Non Aktif</span>
+                        <span class="badge bg-success">Tampil</span>
+                      @elseif($row->role == 0)
+                        <span class="badge bg-danger">Tidak Tampil</span>
                       @endif
                     </td>
+                    <td>{{ $row->nama_produk }}</td>
+                    <td>Rp{{ number_format($row->stok, 0, ',', '.') }}</td>
+                    <td>{{ $row->stok}}</td>
                     <td>
-                      <a href="{{ route('backend.user.edit', $row->id) }}">
+                      <a href="{{ route('backend.produk.edit', $row->id) }}">
                         <button type="button" class="btn btn-warning btn-sm" title="Ubah Data">
                           <i class="far fa-edit"></i> Ubah
                         </button>
                       </a>
 
-                      <form method="POST" action="{{ route('backend.user.destroy', $row->id) }}"
+                      <form method="POST" action="{{ route('backend.produk.destroy', $row->id) }}"
                         style="display: inline-block;">
                         @method('delete')
                         @csrf
                         <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                          data-konf-delete="{{ $row->nama }}" title='Hapus Data'>
+                          data-konf-delete="{{ $row->nama_produk }}" title='Hapus Data'>
                           <i class="fas fa-trash"></i> Hapus
                         </button>
                       </form>

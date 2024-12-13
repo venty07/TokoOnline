@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function loginBackend(){
+    public function loginBackend()
+    {
         return view('backend.v_login.login', [
             'judul' => 'Login',
         ]);
@@ -16,20 +17,24 @@ class LoginController extends Controller
     public function authenticateBackend(Request $request)
     {
         $credentials = $request->validate([
-            'email'  =>'required|email',
+            'email' => 'required|email',
             'password' => 'required'
+        ], [
+            'email.required' => 'Form email harus diisi',
+            'password.required' => 'Form password harus diisi',
         ]);
 
-        if(Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
             if (Auth::user()->status == 0) {
                 Auth::logout();
-                return back()->with('error', 'user belum aktif');
+                return back()->with('error', 'User belum aktif');
             }
             $request->session()->regenerate();
             return redirect()->intended(route('backend.beranda'));
         }
         return back()->with('error', 'Login Gagal');
     }
+
     public function logoutBackend()
     {
         Auth::logout();

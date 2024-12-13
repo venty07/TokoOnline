@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('email')->unique();
-            $table->enum('role', [0, 1, 2])->default(0); // 0=Admin, 1=SuperAdmin, 2=customer
-            $table->boolean('status'); //0=belum aktif, 1=aktif
-            $table->string('password'); 
-            $table->string('hp', 13); 
+            $table->enum('role', [0, 1, 2])->default(0); // 0 = admin, 1 = super admin, 2 = customer
+            $table->boolean('status'); // 0 = belum aktif, 1 = aktif
+            $table->string('password');
+            $table->string('hp', 13);
             $table->string('foto')->nullable();
             $table->timestamps();
         });
